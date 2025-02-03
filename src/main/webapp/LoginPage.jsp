@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Register Page</title>
+<title>Login Page</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
 
 	<style>
 		body {
@@ -17,7 +18,6 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
         h1 {
             color: #123A85;
         }
-
         main {
             flex: 1; /* Allow main content to expand */
             display: flex;
@@ -61,29 +61,19 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
             margin-top: auto; 
         }
 	</style>
-
-</head>
-<body>
-	<header>
-        <div>  
+	<body>
+		<header>
+	        <div>  
             <h1>EVENTIFY!!</h1>
         </div>
-    </header>
+    	</header>
     <%@ include file="components/navbar.jsp" %>
     
     <main>
     	<div class="registration-form">
-        <h2 class="mb-4">Registration</h2>
+        <h2 class="mb-4">Login</h2>
         <hr>
-        <form>
-            <div class="mb-3">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First Name">
-            </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name">
-            </div>
+        <form onsubmit="simulateLogin(event)">
             <div class="mb-3">
                 <label for="email" class="form-label">Email*</label>
                 <input type="email" class="form-control" id="email" placeholder="abcdef1234@gmail.com" required>
@@ -92,21 +82,19 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
                 <label for="password" class="form-label">Password*</label>
                 <input type="password" class="form-control" id="password" placeholder="..................." required>
             </div>
-            <div class="mb-3">
-                <label for="gender" class="form-label">Gender</label>
-                <select class="form-select" id="gender">
-                    <option selected>----Select----</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+   
+            <button type="submit" class="btn btn-primary" >Login</button>
         </form>
     </div>
     </main>
     
- 
-    
+    <script>
+    function simulateLogin(event) {
+        event.preventDefault(); 
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = "./index.jsp";
+    }
+</script>
     
     
     
@@ -116,6 +104,7 @@ integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEw
     <footer class="mt-auto"> <%-- Footer with mt-auto for sticky footer behavior --%>
         <%@ include file="components/footer.jsp" %>
     </footer>
-	
+    
+
 </body>
 </html>

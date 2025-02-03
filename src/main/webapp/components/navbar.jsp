@@ -55,34 +55,76 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    	<li class="nav-item ">
-                    		<a class="nav-link" href="#">Home</a>
-                    	</li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Let's Connect
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end"> <%-- dropdown-menu-end for right alignment --%>
-                            <li><a class="dropdown-item" href="#">Sign Up</a></li>
-                            <li><a class="dropdown-item" href="#">Login</a></li>
-                        </ul>
-                    </div>
+   <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="nav-items">
+                <li class="nav-item"><a class="nav-link" href="./index.jsp">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="./AboutPage.jsp">About</a></li>
+            </ul>
+            <div class="d-flex" id="auth-buttons">
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="authText">
+                        Let's Connect
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" id="authMenu">
+                        <li><a class="dropdown-item" href="./LoginPage.jsp">Login</a></li>
+                        <li><a class="dropdown-item" href="./RegisterPage.jsp">Sign Up</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> </body>
-</html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.getElementById('nav-items');
+        const authButtons = document.getElementById('auth-buttons');
+        const authText = document.getElementById('authText');
+        const authMenu = document.getElementById('authMenu');
+
+        // Check if user is logged in
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+        if (isLoggedIn) {
+           
+            navItems.innerHTML += `
+                <li class="nav-item"><a class="nav-link" href="./UserListPage.jsp">User List</a></li>
+                <li class="nav-item"><a class="nav-link" href="./BookingHistoryPage.jsp">Booking History</a></li>
+                <li class="nav-item"><a class="nav-link" href="./VenuePage.jsp">Venue</a></li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="eventDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Event Type
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="eventDropdown">
+                    <li><a class="dropdown-item" href="./AddEventPage.jsp">Add Event</a></li>
+                    <li><a class="dropdown-item" href="./EventListPage.jsp">Event List</a></li>
+                </ul>
+            </li>
+            `;
+
+            
+            authText.innerText = "User Profile";
+            authMenu.innerHTML = `
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+            `;
+
+            // Add logout functionality
+            document.getElementById('logoutBtn').addEventListener('click', function (event) {
+                event.preventDefault();
+                localStorage.removeItem('isLoggedIn'); 
+                window.location.reload(); 
+            });
+        }
+    });
+</script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
+    </body>
+	</html>
