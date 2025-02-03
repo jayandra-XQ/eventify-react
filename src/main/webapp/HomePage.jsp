@@ -39,7 +39,7 @@
 </head>
 <body>
 	<header>
-        <div>  <%-- Container for the header --%>
+        <div>  
             <h1>EVENTIFY!!</h1>
         </div>
     </header>
