@@ -12,6 +12,9 @@
           	body{
           		min-height: 100vh;
           	}
+          	h1{
+        	color: #123A85;
+        }
           	
           	.about-section {
             padding: 40px 0; 
@@ -37,14 +40,14 @@
         .team-member {
             margin: 20px;
             border: none;
-            background-color: #D9D9D9; /* Card background color */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+            background-color: #D9D9D9; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
             border-radius: 8px;
             overflow: hidden;
-            display: flex; /* Use flexbox for centering */
-            flex-direction: column; /* Stack elements vertically */
-            align-items: center; /* Center horizontally */
-            padding: 20px; /* Add padding inside the card */
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            padding: 20px; 
         }
 
         .team-member img {
@@ -52,12 +55,12 @@
             height: 150px;
             border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 10px; /* Space between image and text */
+            margin-bottom: 10px; 
         }
 
         .team-member-content {
-            text-align: center; /* Center text within card content */
-            width: 100%; /* Ensure content takes full card width */
+            text-align: center; 
+            width: 100%; 
         }
         .team-member-title{
             font-size: 24px;
