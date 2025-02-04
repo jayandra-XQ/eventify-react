@@ -33,8 +33,8 @@
         }
 
         .venue-container {
-            width: 100%; /* Wider container */
-            max-width: 1600px; /* Set a maximum width */
+            width: 100%; 
+            max-width: 1600px; 
             margin-bottom: 300px;
             background-color: white;
             padding: 20px;
