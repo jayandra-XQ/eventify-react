@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Navbar</title>
     <style>
+    
         .navbar {
             height: 83px; 
             background-color: #676B98; 
@@ -88,42 +89,54 @@
         const authText = document.getElementById('authText');
         const authMenu = document.getElementById('authMenu');
 
-        // Check if user is logged in
+        // Check login status and role
         const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const userRole = localStorage.getItem('userRole'); // 'admin' or 'user'
 
         if (isLoggedIn) {
-           
-            navItems.innerHTML += `
-                <li class="nav-item"><a class="nav-link" href="./UserListPage.jsp">User List</a></li>
-                <li class="nav-item"><a class="nav-link" href="./BookingHistoryPage.jsp">Booking History</a></li>
-                <li class="nav-item"><a class="nav-link" href="./VenuePage.jsp">Venue</a></li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="eventDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Event Type
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="eventDropdown">
-                    <li><a class="dropdown-item" href="./AddEventPage.jsp">Add Event</a></li>
-                    <li><a class="dropdown-item" href="./EventListPage.jsp">Event List</a></li>
-                </ul>
-            </li>
-            `;
+            if (userRole === 'admin') {
+                // Admin Navbar
+                navItems.innerHTML += `
+                    <li class="nav-item"><a class="nav-link" href="./UserListPage.jsp">User List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./BookingHistoryPage.jsp">Booking History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./VenuePage.jsp">Venue</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="eventDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Event Type
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="eventDropdown">
+                            <li><a class="dropdown-item" href="./AddEventPage.jsp">Add Event</a></li>
+                            <li><a class="dropdown-item" href="./EventListPage.jsp">Event List</a></li>
+                        </ul>
+                    </li>
+                `;
+            } else if (userRole === 'user') {
+                // User Navbar
+                navItems.innerHTML += `
+                    <li class="nav-item"><a class="nav-link" href="./BookPage.jsp">Book</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./BookingHistoryPage.jsp">Booking History</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./ContactPage.jsp">Contact</a></li>
+                `;
+            }
 
-            
+            // Update auth buttons to show User Profile & Logout
             authText.innerText = "User Profile";
             authMenu.innerHTML = `
                 <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                <li><a class="dropdown-item" href="./index.jsp" id="logoutBtn">Logout</a></li>
             `;
 
             // Add logout functionality
             document.getElementById('logoutBtn').addEventListener('click', function (event) {
                 event.preventDefault();
                 localStorage.removeItem('isLoggedIn'); 
-                window.location.reload(); 
+                localStorage.removeItem('userRole'); 
+                window.location.reload();
             });
         }
     });
 </script>
+
    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script> 
     </body>

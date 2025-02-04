@@ -90,8 +90,20 @@
     
     <script>
     function simulateLogin(event) {
-        event.preventDefault(); 
-        localStorage.setItem('isLoggedIn', 'true');
+    	event.preventDefault(); 
+
+        const email = document.getElementById("email").value;
+        let role = "user"; // Default role is user
+
+        if (email.includes("admin")) {
+            role = "admin"; // If email contains "admin", assign admin role
+        }
+
+        // Store login status and role in localStorage
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userRole", role);
+
+        // Redirect to index.jsp
         window.location.href = "./index.jsp";
     }
 </script>
