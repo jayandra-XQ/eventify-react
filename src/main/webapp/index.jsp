@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="images/party3.jpg" class="d-block w-100" alt="Carousel 2">
+                <img src="images/photo.avif" class="d-block w-100" alt="Carousel 2">
                 <div class="carousel-caption d-none d-md-block">
                     
                     <p>"Unleash your imagination, we'll bring it to life.".</p>

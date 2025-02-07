@@ -81,6 +81,7 @@
             font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
+             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         </style>
 <body>
@@ -116,13 +117,20 @@
                         <td>500000</td>
                         <td>2025-05-21</td>
                         <td>Wedding Ceremony</td>
-                        <td><button class="book-button">Book & Pay</button></td>
+                        <td><button class="book-button" onclick="redirectToPayment()">Book & Pay</button></td>
                     </tr>
                     <%-- Add more rows here --%>
                 </tbody>
             </table>
         </div>
     </main>
+    
+        <script>
+        function redirectToPayment() {
+            // Redirect to the payment page
+            window.location.href = "./PaymentPage.jsp"; 
+        }
+    </script>
     
     
     

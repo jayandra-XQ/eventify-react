@@ -122,7 +122,7 @@
             // Update auth buttons to show User Profile & Logout
             authText.innerText = "User Profile";
             authMenu.innerHTML = `
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="./ProfilePage.jsp">Profile</a></li>
                 <li><a class="dropdown-item" href="./index.jsp" id="logoutBtn">Logout</a></li>
             `;
 
