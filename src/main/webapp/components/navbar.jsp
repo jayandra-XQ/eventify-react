@@ -28,11 +28,11 @@
         }
         
         .dropdown-menu {
-            background-color: #FFFFFF; /* Dropdown background color */
+            background-color: #FFFFFF; 
         }
 
         .dropdown-item {
-            color: #2D3378; /* Dropdown item text color */
+            color: #2D3378; 
         }
         .btn{
             background-color: #2D3378;
@@ -66,6 +66,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="nav-items">
                 <li class="nav-item"><a class="nav-link" href="./index.jsp">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="./AboutPage.jsp">About</a></li>
+                  <li class="nav-item"><a class="nav-link" href="./CategoriesPage.jsp">Categories</a></li>
             </ul>
             <div class="d-flex" id="auth-buttons">
                 <div class="dropdown">
