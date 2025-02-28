@@ -1,3 +1,6 @@
+import Footer from "./components/Footer"
+import Navbar from "./components/Navbar"
+import Home from "./pages/homePage"
 
 
 function App() {
@@ -5,7 +8,9 @@ function App() {
 
   return (
     <>
-      <div>hello world</div>
+      <Navbar />
+      <Home />
+      <Footer />
     </>
   )
 }
