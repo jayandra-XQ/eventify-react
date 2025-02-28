@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const login = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-gradient-to-br from-blue-100 to-blue-200 min-h-screen flex flex-col">
       <div className="container mx-auto px-4 py-8 flex-grow flex items-center justify-center">
@@ -22,7 +24,7 @@ const login = () => {
             </div>
             <div>
               <button className="w-30% bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-lg"
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/')}
               >
                 Login
               </button>
