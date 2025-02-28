@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
@@ -11,8 +12,8 @@ const Navbar = () => {
         <div className="container mx-auto px-5 py-3 flex items-center justify-between">
 
           <div className="flex items-center space-x-4">
-            <a href="/" className="text-[#123A85] hover:text-purple-600">Home</a>
-            <a href="/about" className="text-[#123A85] hover:text-purple-600">About</a>
+            <Link to="/" className="text-[#123A85] hover:text-purple-600">Home</Link>
+            <Link to="/about" className="text-[#123A85] hover:text-purple-600">About</Link>
           </div>
 
           {/* Right Side (Connect Dropdown) */}
@@ -25,8 +26,8 @@ const Navbar = () => {
             </button>
             <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-right transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
               <div className="py-1">
-                <a href="/signup" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign Up</a>
-                <a href="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</a>
+                <Link to="/signup" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign Up</Link>
+                <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</Link>
               </div>
             </div>
           </div>

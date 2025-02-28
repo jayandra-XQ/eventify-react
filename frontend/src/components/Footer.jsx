@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -11,16 +12,16 @@ const Footer = () => {
 
         {/* Links */}
         <div className="flex space-x-4 mb-4">
-          <a href="/privacy" className="text-gray-700 hover:text-purple-600">Privacy Policy</a>
-          <a href="/terms" className="text-gray-700 hover:text-purple-600">Terms Of Service</a>
-          <a href="/faq" className="text-gray-700 hover:text-purple-600">FAQ</a>
+          <Link to="/privacy" className="text-gray-700 hover:text-purple-600">Privacy Policy</Link>
+          <Link to="/terms" className="text-gray-700 hover:text-purple-600">Terms Of Service</Link>
+          <Link to="/faq" className="text-gray-700 hover:text-purple-600">FAQ</Link>
         </div>
 
         {/* Social Icons */}
         <div className="flex space-x-4 mb-4">
-          <a href="#" className="text-gray-700 hover:text-purple-600"><i className="fab fa-facebook-f"></i></a>
-          <a href="#" className="text-gray-700 hover:text-purple-600"><i className="fab fa-twitter"></i></a>
-          <a href="#" className="text-gray-700 hover:text-purple-600"><i className="fab fa-instagram"></i></a>
+          <Link to="#" className="text-gray-700 hover:text-purple-600"><i className="fab fa-facebook-f"></i></Link>
+          <Link to="#" className="text-gray-700 hover:text-purple-600"><i className="fab fa-twitter"></i></Link>
+          <Link to="#" className="text-gray-700 hover:text-purple-600"><i className="fab fa-instagram"></i></Link>
         </div>
 
         {/* Copyright */}
