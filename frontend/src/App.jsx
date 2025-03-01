@@ -5,6 +5,7 @@ import Home from "./pages/homePage"
 import Signup from "./pages/signupPage"
 import Login from "./pages/loginPage"
 import About from './pages/aboutPage'
+import Category from './pages/categoryPage'
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path='/about' element={<About />} />
+        <Route path='/category' element={<Category />} />
       </Routes>
       <Footer />
     </BrowserRouter>

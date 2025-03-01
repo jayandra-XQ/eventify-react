@@ -14,6 +14,8 @@ const Navbar = () => {
           <div className="flex items-center space-x-4">
             <Link to="/" className="text-[#123A85] hover:text-purple-600">Home</Link>
             <Link to="/about" className="text-[#123A85] hover:text-purple-600">About</Link>
+            <Link to="/category" className="text-[#123A85] hover:text-purple-600">Category</Link>
+
           </div>
 
           {/* Right Side (Connect Dropdown) */}
