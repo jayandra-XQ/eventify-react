@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState('');
 
   const [formData, setFormData] = useState({
     email: '',
@@ -13,8 +15,43 @@ const login = () => {
     setFormData({ ...formData, [e.target.id]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
+    if (!formData.email || !formData.password) {
+      toast.error('Please fill in all fields!')
+      return
+    }
+
+    try {
+      setLoading(true)
+
+      const res = await fetch('api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await res.json()
+      if (data.success === false) {
+        toast.error(data?.message)
+        return
+      }
+      setLoading(false)
+
+      if (res.ok) {
+        toast.success('Logged in successfully!')
+        navigate('/')
+      };
+
+    } catch (error) {
+      toast.error("An error occurred while signing up!")
+      console.error(error)
+      setLoading(false)
+
+    }
     console.log('form data submitted', formData)
 
     navigate('/')
@@ -53,8 +90,15 @@ const login = () => {
             <div>
               <button className="w-30% bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-lg"
                 type='submit'
+                disabled={loading}
               >
-                Login
+                {
+                  loading ? (
+                    <>
+                      <span className='pl-3'>Loading...</span>
+                    </>
+                  ) : 'Login'
+                }
               </button>
             </div>
           </form>
