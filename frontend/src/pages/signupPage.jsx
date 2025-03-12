@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'
 
 const signupPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -13,15 +15,48 @@ const signupPage = () => {
   })
 
 
+  //getting data from the form
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   }
 
-  const handleSubmit = (e) => {
+  //submitting data from the form
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form data submitted", formData)
 
-    navigate('/login')
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.password || !formData.gender) {
+      toast.error("please fill in all fields!")
+      return
+    }
+
+    try {
+      setLoading(true)
+
+      const res = await fetch('api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+      if (data.success === false) {
+        toast.error(data?.message)
+        return
+      }
+
+      setLoading(false)
+      if (res.ok) {
+        toast.success("Signup successful! Please login now.")
+        navigate('/login')
+      }
+
+    } catch (error) {
+      toast.error("An error occurred while signing up!")
+      console.error(error)
+      setLoading(false)
+    }
   }
 
   return (
@@ -89,17 +124,23 @@ const signupPage = () => {
                   onChange={handleChange}
                 >
                   <option>----Select----</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Other</option>
+                  <option>male</option>
+                  <option>female</option>
                 </select>
               </div>
 
               <div>
                 <button className="w-30% bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-lg"
                   type='submit'
+                  disabled={loading}
                 >
-                  Register
+                  {
+                    loading ? (
+                      <>
+                        <span className='pl-3'>Loading...</span>
+                      </>
+                    ) : 'Register'
+                  }
                 </button>
               </div>
             </form>

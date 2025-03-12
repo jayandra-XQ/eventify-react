@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import Footer from "./components/Footer"
 import Navbar from "./components/Navbar"
 import Home from "./pages/homePage"
@@ -15,6 +16,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
 
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
