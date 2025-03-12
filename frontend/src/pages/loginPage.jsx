@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice';
 
 const login = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState('');
 
+
+  const { loading } = useSelector(state => state.user)
+
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -19,12 +24,11 @@ const login = () => {
     e.preventDefault()
 
     if (!formData.email || !formData.password) {
-      toast.error('Please fill in all fields!')
-      return
+      return dispatch(signInFailure('Please fill out all fields'))
     }
 
     try {
-      setLoading(true)
+      dispatch(signInStart())
 
       const res = await fetch('api/auth/signin', {
         method: 'POST',
@@ -36,20 +40,17 @@ const login = () => {
 
       const data = await res.json()
       if (data.success === false) {
-        toast.error(data?.message)
-        return
+        dispatch(signInFailure(data.message))
       }
-      setLoading(false)
 
       if (res.ok) {
-        toast.success('Logged in successfully!')
+        dispatch(signInSuccess(data))
+        toast.success("Login successful!")
         navigate('/')
       };
 
     } catch (error) {
-      toast.error("An error occurred while signing up!")
-      console.error(error)
-      setLoading(false)
+      dispatch(signInFailure(error.message))
 
     }
     console.log('form data submitted', formData)
