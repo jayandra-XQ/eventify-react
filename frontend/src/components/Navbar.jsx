@@ -1,7 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+
+  const { currentUser } = useSelector(state => state.user)
+
+
   return (
     <>
       {/* Eventify Name */}
@@ -16,23 +21,128 @@ const Navbar = () => {
             <Link to="/about" className="text-[#123A85] hover:text-purple-600">About</Link>
             <Link to="/category" className="text-[#123A85] hover:text-purple-600">Category</Link>
 
+
+            {/* Conditional Links Based on Role */}
+            {currentUser ? (
+              currentUser.isAdmin ? (
+                <>
+                  <Link
+                    to="/userlist"
+                    className="text-[#123A85] hover:text-purple-600"
+                  >
+                    User List
+                  </Link>
+                  <Link
+                    to="/bookinghistory"
+                    className="text-[#123A85] hover:text-purple-600"
+                  >
+                    Booking History
+                  </Link>
+                  <Link
+                    to="/venue"
+                    className="text-[#123A85] hover:text-purple-600"
+                  >
+                    Venue
+                  </Link>
+
+                  {/* Dropdown for Event Type */}
+                  <div className="relative group">
+                    <button className="text-[#123A85] hover:text-purple-600 focus:outline-none flex items-center">
+                      Event Type
+                      <svg
+                        className="w-4 h-4 ml-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </button>
+                    <div className="absolute left-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-left transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
+                      <div className="py-1">
+                        <Link
+                          to="/addevent"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Add Event
+                        </Link>
+                        <Link
+                          to="/eventlist"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          Event List
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/book"
+                    className="text-[#123A85] hover:text-purple-600"
+                  >
+                    Book
+                  </Link>
+                  <Link
+                    to="/bookinghistory"
+                    className="text-[#123A85] hover:text-purple-600"
+                  >
+                    Booking History
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="text-[#123A85] hover:text-purple-600"
+                  >
+                    Contact
+                  </Link>
+                </>
+              )
+            ) : null}
+
           </div>
 
-          {/* Right Side (Connect Dropdown) */}
-          <div className="relative group">
-            <button className="text-gray-700 hover:text-purple-600 focus:outline-none flex items-center">
-              Let's Connect
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-right transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
-              <div className="py-1">
-                <Link to="/signup" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign Up</Link>
-                <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</Link>
+          {/* Right Side: User Dropdown or "Let's Connect" */}
+          {currentUser ? (
+            <div className="relative group">
+              <button className="text-gray-700 hover:text-purple-600 focus:outline-none flex items-center">
+                {currentUser.email}
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-right transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
+                <div className="py-1">
+                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">User Profile</Link>
+                  <button
+                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Logout
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="relative group">
+              <button className="text-gray-700 hover:text-purple-600 focus:outline-none flex items-center">
+                Let's Connect
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-right transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
+                <div className="py-1">
+                  <Link to="/signup" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign Up</Link>
+                  <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
     </>
