@@ -1,4 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="java.util.List, model.Venue, dao.VenueDAO" %>
+<%
+    // Fetch all venues
+    VenueDAO venueDAO = new VenueDAO();
+    List<Venue> venues = venueDAO.getAllVenues();
+%>
+
+<%@ page import="dao.EventDAO, model.Event" %>  <%-- Add this import --%>
+<%
+    // Add this code to fetch events
+    EventDAO eventDAO = new EventDAO();
+    List<Event> events = eventDAO.getAllEvents();
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,6 +139,25 @@
                 width: 100%; 
             }
         }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .form-select {
+		    border-radius: 8px;
+		    border: 1px solid #ced4da;
+		    padding: 15px;
+		    width: 500px;
+		    font-size: 1.1rem;
+		    box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+		    background-color: white;
+		}
     </style>
 </head>
 
@@ -138,45 +173,61 @@
         <div class="venue-container">
             <h2>Event VENUE</h2>
             <hr>
-            <div class="image-gallery">
-                <img src="images/venue1.avif" alt="Venue 1">
-                <img src="images/venue2.avif" alt="Venue 2">
-                <img src="images/venue3.avif" alt="Venue 3">
-                <img src="images/venue4.avif" alt="Venue 4">
-                <img src="images/venue5.avif" alt="Venue 5">
-                <img src="images/venue6.avif" alt="Venue 6">
-            </div>
-            <form>
-                <div class="form-group">
-                    <label for="eventType" class="form-label">Event Type:</label>
-                    <input type="text" class="form-control" id="eventType" placeholder="College Events">
+            
+            <%-- Display success message --%>
+            <% if (request.getParameter("success") != null) { %>
+                <div id="successMessage" class="alert alert-success">
+                    <%= request.getParameter("success") %>
                 </div>
+            <% } %>
+            
+            
+            <div class="image-gallery">
+                <% for (Venue venue : venues) { 
+                    if (venue.getPhotoUrl() != null) { %>
+                        <img src="uploads/<%= venue.getPhotoUrl() %>" alt="Venue Photo">
+                <% } 
+                } %>
+            </div>
+            <form action="add-venue" method="POST"  enctype="multipart/form-data">
+            
+            	<div class="form-group">
+				    <label for="eventType" class="form-label">Event Type:</label>
+				    <select class="form-select" id="eventType" name="eventType" required>
+				        <option value="">Select Event Type</option>
+				        <% for (Event event : events) { %>
+				           <option value="<%= event.getEventName() %>"><%= event.getEventName()%></option>
+				        <% } %>
+				    </select>
+				</div>
+               
                 <div class="form-group">
                     <label for="capacity" class="form-label">Capacity:</label>
-                    <input type="text" class="form-control" id="capacity" placeholder="100">
+                    <input type="number" class="form-control" id="capacity" name="capacity" required>
                 </div>
                 <div class="form-group">
                     <label for="cost" class="form-label">Cost:</label>
-                    <input type="text" class="form-control" id="cost" placeholder="400000">
+                    <input type="number" class="form-control" id="cost" name="cost" required>
                 </div>
                 <div class="form-group">
                     <label for="location" class="form-label">Location:</label>
-                    <input type="text" class="form-control" id="location">
+                    <input type="text" class="form-control" id="location" name="location" required>
                 </div>
                 <div class="form-group">
                     <label for="contact" class="form-label">Contact:</label>
-                    <input type="text" class="form-control" id="contact">
+                    <input type="text" class="form-control" id="contact" name="contact" required>
                 </div>
                 <div class="form-group">
                     <label for="date" class="form-label">Date:</label>
-                    <input type="text" class="form-control" id="date" placeholder="date here........">
+                    <input type="date" class="form-control" id="eventDate" name="eventDate" required>
                 </div>
                 <div class="form-group" style="width: 100%;">
                     <label for="eventPhoto" class="form-label">Event Photo:</label>
-                    <input class="form-control" type="file" id="eventPhoto">
+                    <input class="form-control" type="file" id="eventPhoto" name="eventPhoto">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            
         </div>
     </main>
 
@@ -184,10 +235,22 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Auto-hide success message after 3 seconds
+        const successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 3000); // 3000 milliseconds = 3 seconds
+        }
+    </script>
 
     <footer class="mt-auto">
         <%@ include file="components/footer.jsp" %>
     </footer>
+    
+    
 
 </body>
 

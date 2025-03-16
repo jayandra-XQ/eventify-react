@@ -1,5 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <%@ page import="model.User" %>
+<% 
+    String success = request.getParameter("success");
+    String error = request.getParameter("error");
+%>
+
+<%-- Add messages display --%>
+<% if (success != null) { %>
+    <div class="alert alert-success text-center">
+        <%= success %>
+    </div>
+<% } %>
+<% if (error != null) { %>
+    <div class="alert alert-danger text-center">
+        <%= error %>
+    </div>
+<% } %>
+ 	  
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,6 +121,22 @@
             cursor: pointer;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
         }
+        
+        .alert {
+		    border-radius: 8px;
+		    padding: 15px;
+		    margin-bottom: 20px;
+		}
+		.alert-success {
+		    background-color: #d4edda;
+		    border: 1px solid #c3e6cb;
+		    color: #155724;
+		}
+		.alert-danger {
+		    background-color: #f8d7da;
+		    border: 1px solid #f5c6cb;
+		    color: #721c24;
+		}
        
         
 	</style>
@@ -130,18 +165,18 @@
                 <p><i class="fas fa-envelope"></i> info@eventify.com</p>
             </div>
 
-            <form>
+            <form action="contact" method="POST">
                 <div class="form-group">
                     <label for="name">Your Name</label>
-                    <input type="text" class="form-control" id="name" required>
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Your Email</label>
-                    <input type="email" class="form-control" id="email" required>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="message">Your Message</label>
-                    <textarea class="form-control" id="message" rows="5" required></textarea>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

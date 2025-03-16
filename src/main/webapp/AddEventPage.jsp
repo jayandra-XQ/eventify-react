@@ -103,14 +103,14 @@
 <main>
     <div class="event-type-container">
         <h2>Add New Event</h2>
-        <form>
+        <form action="add-event" method="POST">
             <div class="mb-3">
                 <label for="eventName" class="form-label">Event Name:</label>
-                <input type="text" class="form-control" id="eventName" placeholder="Enter Event Name">
+                <input type="text" class="form-control" id="eventName" name="eventName" required>
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description:</label>
-                <textarea class="form-control" id="description" placeholder="Describe your event"></textarea>
+                <textarea class="form-control" id="description" name="description" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Create Event</button>
         </form>

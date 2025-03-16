@@ -1,147 +1,153 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="dao.VenueDAO, model.Venue, java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Book Page</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<style>
-	
-        h1 {
-            color: #123A85;
-        }
-         body {
+    <meta charset="UTF-8">
+    <title>Book Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: #e9ecef; 
+            background-color: #f8f9fa;
         }
-         	h2{
-       		text-align: center;
-       		margin-top: 30px;
-       	}
-        
+        h1 {
+            color: #123A85;
+            text-align: center;
+            margin: 30px 0;
+        }
         main {
             flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 0;
+            padding: 40px 20px;
         }
-
         .venue-container {
-            width: 100%; 
-            max-width: 1600px; 
-            margin-bottom: 300px;
+            max-width: 1600px;
+            margin: 0 auto;
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #D7B687;
-            font-weight: bold;
-            color: #2D3378;
-        }
-        td{
-        	background-color: #A8A196;
-        }
-        
-
-       
         .venue-image {
-            max-width: 100px; 
-            height: auto;
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
-
-        
-        .book-button {
-            background-color: #4CAF50; /* Green */
-            border: none;
+        .table thead th {
+            background-color: #2D3378;
             color: white;
-            padding: 8px 16px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            border-bottom: 2px solid #D7B687;
         }
-        </style>
+        .book-button {
+            background-color: #2D3378;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .book-button:hover {
+            background-color: #1A1F4D;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .cost-badge {
+            background-color: #D7B687;
+            color: #2D3378;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
 <body>
-<header>
-	        <div>  
-            <h1>EVENTIFY!!</h1>
-        </div>
-    	</header>
-    <%@ include file="components/navbar.jsp" %>
+    <%
+        // Fetch all venues from database
+        VenueDAO venueDAO = new VenueDAO();
+        List<Venue> venues = venueDAO.getAllVenues();
+    %>
+
+    <header>
+        <h1>EVENTIFY!!</h1>
+    </header>
     
-            <h2>Venue List</h2>
+    <%@ include file="components/navbar.jsp" %>
+
     <main>
         <div class="venue-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Location</th>
-                        <th>Capacity</th>
-                        <th>Cost</th>
-                        <th>Date</th>
-                        <th>EventType</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><img src="images/about2.webp" alt="Venue Image" class="venue-image"></td>  <%-- Add image here --%>
-                        <td>Mumbai</td>
-                        <td>500</td>
-                        <td>500000</td>
-                        <td>2025-05-21</td>
-                        <td>Wedding Ceremony</td>
-                        <td><button class="book-button" onclick="redirectToPayment()">Book & Pay</button></td>
-                    </tr>
-                    <%-- Add more rows here --%>
-                </tbody>
-            </table>
+            <h2 class="mb-4" style="color: #2D3378;">Available Events</h2>
+            
+            <% if (venues.isEmpty()) { %>
+                <div class="alert alert-info" role="alert">
+                    No venues available at the moment. Please check back later!
+                </div>
+            <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Venue</th>
+                                <th>Location</th>
+                                <th>Capacity</th>
+                                <th>Price</th>
+                                <th>Event Date</th>
+                                <th>Event Type</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (Venue venue : venues) { %>
+                                <tr>
+                                    <td>
+                                        <% if (venue.getPhotoUrl() != null && !venue.getPhotoUrl().isEmpty()) { %>
+                                            <img src="uploads/<%= venue.getPhotoUrl() %>" 
+                                                alt="Venue Image" 
+                                                class="venue-image">
+                                        <% } else { %>
+                                            <div class="venue-image bg-secondary"></div>
+                                        <% } %>
+                                    </td>
+                                    <td class="fw-bold" style="color: #2D3378;"><%= venue.getLocation() %></td>
+                                    <td><%= venue.getCapacity() %> people</td>
+                                    <td>
+                                        <span class="cost-badge">
+                                            ₹<%= String.format("%,.2f", venue.getCost()) %>
+                                        </span>
+                                    </td>
+                                    <td><%= venue.getEventDate() %></td>
+                                    <td class="fst-italic"><%= venue.getEventType() %></td>
+                                    <td>
+                                        <button class="book-button" 
+                                                onclick="redirectToPayment(<%= venue.getId() %>)">
+                                            Book Now
+                                        </button>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
         </div>
     </main>
-    
-        <script>
-        function redirectToPayment() {
-            // Redirect to the payment page
-            window.location.href = "./PaymentPage.jsp"; 
+
+    <script>
+        function redirectToPayment(venueId) {
+            window.location.href = "PaymentPage.jsp?venueId=" + venueId;
         }
     </script>
-    
-    
-    
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <footer class="mt-auto"> 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <footer class="mt-auto">
         <%@ include file="components/footer.jsp" %>
     </footer>
-    
-
 </body>
 </html>
