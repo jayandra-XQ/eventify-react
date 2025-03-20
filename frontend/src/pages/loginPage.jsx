@@ -64,15 +64,19 @@ const Login = () => {
         <h2 className="text-4xl font-semibold text-center mb-6">Event Login</h2>
         <hr />
 
-        <form className="space-y-8 mt-10">
+        <form className="space-y-8 mt-10" onSubmit={handleSubmit}>
           <div>
             <label className="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" className="mt-1 block w-full border-gray-300 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 p-3 text-lg" placeholder="abcdef1234@gmail.com" />
+            <input
+              id="email" value={formData.email} onChange={handleChange}
+              type="email" className="mt-1 block w-full border-gray-300 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 p-3 text-lg" placeholder="abcdef1234@gmail.com" />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input type="password" className="mt-1 block w-full border-gray-300 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 p-3 text-lg"
+            <input
+              id='password' value={formData.password} onChange={handleChange}
+              type="password" className="mt-1 block w-full border-gray-300 rounded-md shadow-md focus:ring-indigo-500 focus:border-indigo-500 p-3 text-lg"
               placeholder='************'
             />
           </div>
@@ -80,13 +84,19 @@ const Login = () => {
             <button className="w-30% bg-indigo-600 text-white py-3 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 text-lg"
               onClick={() => navigate('/')}
             >
-              Login
+              {
+                loading ? (
+                  <>
+                    <span className='pl-3'>Loading...</span>
+                  </>
+                ) : 'Login'
+              }
+
             </button>
           </div>
         </form>
       </div>
     </div>
-    </div >
   )
 }
 
