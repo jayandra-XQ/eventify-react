@@ -1,0 +1,60 @@
+import React from 'react';
+import { Link } from 'react-router-dom'
+
+const Navbar = () => {
+  return (
+    <>
+      {/* Eventify Name */}
+      <div className="text-2xl font-semibold text-blue-500 min-h-10">
+        EVENTIFY !!
+      </div>
+      <nav className="bg-[#676B98] relative z-50 shadow-md ">
+        <div className="container mx-auto px-5 py-3 flex items-center justify-between">
+
+          <div className="flex items-center space-x-4">
+            <Link to="/admin/dashboard" className="text-[#123A85] hover:text-purple-600">Home</Link>
+            <Link to="/admin/Adminabout" className="text-[#123A85] hover:text-purple-600">About</Link>
+            <Link to="/admin/UserList" className="text-[#123A85] hover:text-purple-600">UserList</Link>
+            <Link to="/admin/Bookinghistory" className="text-[#123A85] hover:text-purple-600">BookingHistory</Link>
+            <Link to="/admin/venue" className="text-[#123A85] hover:text-purple-600">Venue</Link>
+            
+
+            {/* Event Type Dropdown - Fixed */}
+            <div className="relative group">
+              <button className="text-[#123A85] hover:text-purple-600 focus:outline-none flex items-center">
+                Event Type
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              <div className="absolute left-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-left transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
+                <div className="py-1">
+                  <Link to="/admin/AddEvent" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Add Event </Link>
+                  <Link to="/admin/EventType" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Event List</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Users Profile Dropdown - Fixed */}
+          <div className="relative group">
+            <button className="text-[#123A85] hover:text-purple-600 focus:outline-none flex items-center">
+              Admin's Profile
+              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-right transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
+              <div className="py-1">
+                <Link to="/admin/Profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">My Profile</Link>
+                <Link to="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
+};
+
+export default Navbar;
