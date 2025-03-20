@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import coprate from "../../assets/coprate.avif";
-import wedding from "../../assets/wedding.avif"; 
+import wedding from "../../assets/wedding.avif";
 
 const UserBook = () => {
   const navigate = useNavigate(); // Initialize navigation function
@@ -31,7 +31,7 @@ const UserBook = () => {
 
   // Function to handle navigation with selected venue data
   const handleBookAndPay = (venue) => {
-    navigate("/Users/payment", { state: { venue } }); // Pass venue data via state
+    navigate("/payment", { state: { venue } }); // Pass venue data via state
   };
 
   return (
