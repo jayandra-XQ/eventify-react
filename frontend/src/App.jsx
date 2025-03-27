@@ -21,7 +21,7 @@ import Venue from "./pages/admin/Venue";
 import AddEvent from "./pages/admin/AddEvent";
 import EventType from "./pages/admin/EventType";
 import Profile from "./pages/admin/Profile";
-import EventTypeList from "./pages/admin/EventTypeList";
+import EventTypeListAdmin from "./pages/admin/EventTypeListAdmin";
 
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="venue" element={<Venue />} />
           <Route path="userlist" element={<UserList />} />
-          <Route path="eventlist" element={<EventTypeList />} />
+          <Route path="eventlist" element={<EventTypeListAdmin />} />
         </Route>
 
         {/* Admin Routes */}
