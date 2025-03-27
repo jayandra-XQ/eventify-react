@@ -16,14 +16,12 @@ import Userprofile from "./pages/Users/Userprofile";
 import Payment from "./pages/Users/Payment";
 
 // Admin Pages
-import AdminDashboard from "./pages/admin/AdminDashboard";
 import UserList from "./pages/admin/UserList";
-import Adminabout from "./pages/admin/Adminabout";
-import Bookinghistory from "./pages/admin/Bookinghistory";
 import Venue from "./pages/admin/Venue";
 import AddEvent from "./pages/admin/AddEvent";
 import EventType from "./pages/admin/EventType";
 import Profile from "./pages/admin/Profile";
+import EventTypeList from "./pages/admin/EventTypeList";
 
 function App() {
   return (
@@ -42,19 +40,19 @@ function App() {
           <Route path="bookinghistory" element={<UserBookinghistory />} />
           <Route path="contact" element={<Contact />} />
           <Route path="profile" element={<Userprofile />} />
+
+
+          <Route path="event-type" element={<EventType />} />
+          <Route path="addevent" element={<AddEvent />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="venue" element={<Venue />} />
+          <Route path="userlist" element={<UserList />} />
+          <Route path="eventlist" element={<EventTypeList />} />
         </Route>
 
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="users" element={<UserList />} />
-          <Route path="about" element={<Adminabout />} />
-          <Route path="booking-history" element={<Bookinghistory />} />
-          <Route path="venue" element={<Venue />} />
-          <Route path="add-event" element={<AddEvent />} />
-          <Route path="event-type" element={<EventType />} />
-          <Route path="profile" element={<Profile />} />
-        </Route>
+        {/* <Route path="/admin" element={<AdminLayout />}>
+        </Route> */}
       </Routes>
     </BrowserRouter>
   );
