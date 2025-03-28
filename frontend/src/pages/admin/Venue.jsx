@@ -108,7 +108,7 @@ const Venue = () => {
 
           <button
             type="submit"
-            className="w-full bg-purple-700 text-white font-semibold py-2 rounded-lg hover:bg-purple-800"
+            className="w-full bg-indigo-700 text-white font-semibold py-2 rounded-lg hover:bg-indigo-700"
           >
             Submit
           </button>
