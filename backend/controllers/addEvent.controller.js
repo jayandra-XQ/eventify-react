@@ -24,3 +24,14 @@ export const addEvent = async (req, res) => {
     res.status(500).json({ message: error.message })
   }
 }
+
+//get eventlist
+export const eventList = async (req, res) => {
+  try {
+    const events = await AddEvent.find();
+    res.json(events)
+
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+}
