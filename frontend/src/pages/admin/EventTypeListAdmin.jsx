@@ -60,7 +60,7 @@ const EventTypeListAdmin = () => {
         </table>
       </div>
 
-      {/* Debug section */}
+
       <div className="mt-8 p-4 bg-gray-100 rounded">
         <p>Events count: {events.length}</p>
       </div>
