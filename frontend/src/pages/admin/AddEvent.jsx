@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddEvent = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    eventName: "",
+    name: "",
     description: "",
   });
 
@@ -11,10 +14,30 @@ const AddEvent = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-  };
+
+    try {
+      const res = await fetch('/api/add-event/addevent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await res.json();
+      if (res.ok) {
+        toast.success(data.message);
+        navigate('/eventlist')
+      }
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-white">
@@ -25,8 +48,8 @@ const AddEvent = () => {
             <label className="block font-medium">Event Name:</label>
             <input
               type="text"
-              name="eventName"
-              value={formData.eventName}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               placeholder="Enter Event Name"
               className="w-full px-3 py-2 border rounded-lg bg-gray-100"
