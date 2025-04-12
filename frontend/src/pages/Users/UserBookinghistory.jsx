@@ -1,6 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const UserBookinghistory = () => {
+  const [payments, setPayments] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("/api/payments/history")
+        const data = await res.json();
+        setPayments(data);
+      } catch (err) {
+        console.error("Failed to fetch payment history", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPayments();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="p-6 w-full flex flex-col items-center h-screen">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center w-full">
+          History
+        </h1>
+        <div className="text-center">Loading payment history...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 w-full flex flex-col items-center h-screen">
       <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center w-full">
@@ -29,30 +60,42 @@ const UserBookinghistory = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">1</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Ishwar</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">8787 2643 556</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">09/2025</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                  Payment Success
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">2</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Rahul</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">4567 1234 789</td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">12/2026</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                  Pending
-                </span>
-              </td>
-            </tr>
-           
-            {/* More rows can be added dynamically */}
+            {payments.length === 0 ? (
+              <tr>
+                <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
+                  No payment history found
+                </td>
+              </tr>
+            ) : (
+              payments.map((payment, index) => (
+                <tr key={payment._id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    {index + 1}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    {payment.name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    {payment.cardNumber}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    {payment.expiry}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span
+                      className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${payment.status === "Confirmed"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                        }`}
+                    >
+                      {payment.status === "Confirmed"
+                        ? "Payment Success"
+                        : "Pending"}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
