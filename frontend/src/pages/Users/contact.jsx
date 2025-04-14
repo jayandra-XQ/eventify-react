@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
-const Contact= () => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,11 +12,33 @@ const Contact= () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    // Add API call here if needed
+
+    try {
+      const res = await fetch('/api/contact/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(data.message || "Message sent successfully!");
+        // Reset form
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        alert(data.message || "Failed to send message.");
+      }
+    } catch (err) {
+      console.error("Contact form error:", err);
+      alert("Something went wrong. Try again later.");
+    }
   };
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

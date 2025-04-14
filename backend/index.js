@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.route.js'
 import addEventRoutes from './routes/addEvent.route.js'
 import venueRoutes from './routes/venue.route.js'
 import paymentRoutes from './routes/payment.route.js'
+import contactRoutes from './routes/contact.route.js'
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/add-event', addEventRoutes)
 app.use('/api/venues', venueRoutes)
 app.use('/api/payments', paymentRoutes)
+app.use('/api/contact', contactRoutes)
 
 app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
