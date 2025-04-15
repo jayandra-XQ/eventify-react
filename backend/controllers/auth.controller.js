@@ -78,3 +78,26 @@ export const signout = async (req, res) => {
 
   }
 }
+
+
+//get all users
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password");
+    res.status(200).json({ users, total: users.length })
+  } catch (error) {
+    res.status(500).json({ message: "failed to fetch users", error: err })
+
+  }
+}
+
+//delete the user
+export const deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.userId);
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};

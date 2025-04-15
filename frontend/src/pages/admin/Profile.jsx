@@ -17,14 +17,14 @@ const Profile = () => {
         {/* Booking & Events */}
         <div className="flex justify-around items-center text-xl font-semibold mb-8">
           <div className="text-center">
-            <span className="text-red-600 font-bold text-2xl">0</span> 
-            <span className="text-blue-900 ml-2">Your Booking</span>
+            <span className="text-red-600 font-bold text-2xl">0</span>
+            <span className="text-blue-900 ml-2">Total users</span>
             <div className="border-t-4 border-yellow-300 w-24 mx-auto mt-2"></div>
           </div>
 
           <div className="text-center">
-            <span className="text-red-600 font-bold text-2xl">0</span> 
-            <span className="text-blue-900 ml-2">Your Events</span>
+            <span className="text-red-600 font-bold text-2xl">0</span>
+            <span className="text-blue-900 ml-2">Total bookings</span>
             <div className="border-t-4 border-yellow-300 w-24 mx-auto mt-2"></div>
           </div>
         </div>
