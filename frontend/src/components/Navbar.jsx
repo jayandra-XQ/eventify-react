@@ -1,10 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { signoutSuccess } from '../redux/user/userSlice'
 
 const Navbar = () => {
+  const dispatch = useDispatch()
 
   const { currentUser } = useSelector(state => state.user)
+
+
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch('/api/auth/signout', {
+        method: 'POST'
+      });
+      const data = await res.json()
+      if (!res.ok) {
+        console.log(data.message)
+      } else {
+        dispatch(signoutSuccess())
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
 
   return (
@@ -20,7 +39,7 @@ const Navbar = () => {
             <Link to="/" className="text-[#123A85] hover:text-purple-600">Home</Link>
             <Link to="/aboutPage" className="text-[#123A85] hover:text-purple-600">About</Link>
             <Link to="/category" className="text-[#123A85] hover:text-purple-600">Category</Link>
-            
+
 
 
             {/* Conditional Links Based on Role */}
@@ -122,6 +141,7 @@ const Navbar = () => {
                 <div className="py-1">
                   <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">User Profile</Link>
                   <button
+                    onClick={handleSubmit}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Logout
                   </button>
