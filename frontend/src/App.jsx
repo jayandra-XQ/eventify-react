@@ -44,7 +44,7 @@ function App() {
 
           <Route path="event-type" element={<EventType />} />
           <Route path="addevent" element={<AddEvent />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="adminprofile" element={<Profile />} />
           <Route path="venue" element={<Venue />} />
           <Route path="userlist" element={<UserList />} />
           <Route path="eventlist" element={<EventTypeListAdmin />} />

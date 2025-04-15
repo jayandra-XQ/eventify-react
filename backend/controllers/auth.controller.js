@@ -91,6 +91,16 @@ export const getAllUsers = async (req, res) => {
   }
 }
 
+// GET all users for admin
+export const getTotalUsers = async (req, res) => {
+  try {
+    const count = await User.countDocuments();
+    res.status(200).json({ totalUsers: count });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to get user count" });
+  }
+};
+
 //delete the user
 export const deleteUser = async (req, res) => {
   try {

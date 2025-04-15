@@ -46,6 +46,15 @@ export const getUserPayments = async (req, res) => {
   }
 };
 
+export const getTotalBookings = async (req, res) => {
+  try {
+    const count = await Payment.countDocuments(); // or your booking model
+    res.status(200).json({ totalBookings: count });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to get booking count" });
+  }
+};
+
 
 export const deleteUser = async (req, res) => {
   try {

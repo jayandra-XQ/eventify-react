@@ -1,9 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+
 import { signoutSuccess } from '../redux/user/userSlice'
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const { currentUser } = useSelector(state => state.user)
@@ -19,7 +22,9 @@ const Navbar = () => {
         console.log(data.message)
       } else {
         dispatch(signoutSuccess())
+        navigate('/')
       }
+
     } catch (error) {
       console.log(error.message)
     }
@@ -140,6 +145,8 @@ const Navbar = () => {
               <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg origin-top-right transform scale-0 transition-transform duration-200 ease-out group-hover:scale-100">
                 <div className="py-1">
                   <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">User Profile</Link>
+                  <Link to="/adminprofile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin Profile</Link>
+
                   <button
                     onClick={handleSubmit}
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
