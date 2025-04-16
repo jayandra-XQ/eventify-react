@@ -6,7 +6,8 @@ const UserBook = () => {
   const navigate = useNavigate();
   const [venues, setVenues] = useState([]);
   const [loading, setLoading] = useState(true);
-  const defaultImage = "https://via.placeholder.com/150"; // Fallback image URL
+
+  const defaultImage = "/default-image.png"; // Fallback image if venue has no image
 
   // Fetch venues from API
   useEffect(() => {
@@ -15,14 +16,11 @@ const UserBook = () => {
         const response = await fetch('/api/venues');
         if (response.ok) {
           const data = await response.json();
-          console.log("Fetched venue data:", data); // Debug: check what's coming from API
           setVenues(data);
         } else {
-          console.error("Failed to fetch venues");
           toast.error("Failed to load venues. Please try again later.");
         }
       } catch (error) {
-        console.error("Error fetching venues:", error);
         toast.error("Error connecting to server. Please try again later.");
       } finally {
         setLoading(false);
@@ -32,48 +30,25 @@ const UserBook = () => {
     fetchVenues();
   }, []);
 
-  // Function to handle navigation with selected venue data
+  // Function to handle booking and payment navigation
   const handleBookAndPay = (venue) => {
     navigate("/payment", { state: { venue } });
   };
 
-  // Format date to be more readable
+  // Format the date
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  // Function to determine the correct image path
+  // Construct the image path
   const getImagePath = (venue) => {
-    if (!venue.eventPhoto) {
+    if (!venue.eventPhoto || venue.eventPhoto === '') {
       return defaultImage;
     }
 
-    // Option 1: If eventPhoto is a full URL
-    if (typeof venue.eventPhoto === 'string' &&
-      (venue.eventPhoto.startsWith('http://') || venue.eventPhoto.startsWith('https://'))) {
-      return venue.eventPhoto;
-    }
-
-    // Option 2: If eventPhoto is a filename (common in multer uploads)
-    if (typeof venue.eventPhoto === 'string') {
-      // Adjust this path to match your server's file serving setup
-      return `/uploads/${venue.eventPhoto}`;
-    }
-
-    // Option 3: If eventPhoto is an object with filename (from multer)
-    if (typeof venue.eventPhoto === 'object' && venue.eventPhoto.filename) {
-      return `/uploads/${venue.eventPhoto.filename}`;
-    }
-
-    // Option 4: If eventPhoto is an object with path
-    if (typeof venue.eventPhoto === 'object' && venue.eventPhoto.path) {
-      const filename = venue.eventPhoto.path.split('/').pop();
-      return `/uploads/${filename}`;
-    }
-
-    // Fallback
-    return defaultImage;
+    // Assuming backend is running on localhost:5001
+    return `http://localhost:5001${venue.eventPhoto}`;
   };
 
   if (loading) {
@@ -120,15 +95,19 @@ const UserBook = () => {
                   <tr key={venue._id || venue.id} className="bg-gray-300 border-b border-gray-400 text-lg">
                     <td className="px-4 py-2 text-center">{index + 1}</td>
                     <td className="px-4 py-2 flex justify-center">
-                      <img
-                        src={getImagePath(venue)}
-                        alt={venue.eventType || "Venue"}
-                        className="w-32 h-24 object-cover rounded-md"
-                        onError={(e) => {
-                          console.log("Image failed to load:", e.target.src); // Debug
-                          e.target.src = defaultImage;
-                        }}
-                      />
+                      <div className="w-32 h-24 bg-gray-200 flex items-center justify-center rounded-md overflow-hidden">
+                        <img
+                          src={getImagePath(venue)} // Fetch the image from backend
+                          alt={venue.eventType || "Venue"}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            console.error("Image failed to load:", e.target.src);
+                            // If image fails to load, hide the image and show text
+                            e.target.style.display = 'none';
+                            e.target.parentNode.innerHTML = `<div class="w-full h-full flex items-center justify-center text-gray-500">${venue.eventType || 'Venue'}</div>`;
+                          }}
+                        />
+                      </div>
                     </td>
                     <td className="px-4 py-2 text-center">{venue.location}</td>
                     <td className="px-4 py-2 text-center">{venue.capacity}</td>
