@@ -76,7 +76,7 @@ const UserBookinghistory = () => {
                     {payment.name}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                    {payment.cardNumber}
+                    **** **** **** {payment.cardNumber.slice(-4)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                     {payment.expiry}
