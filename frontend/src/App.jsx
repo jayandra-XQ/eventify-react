@@ -8,7 +8,7 @@ import Home from "./pages/homePage";
 import Signup from "./pages/signupPage";
 import Login from "./pages/loginPage";
 import About from "./pages/aboutPage";
-import Category from "./pages/categoryPage";
+// import Category from "./pages/categoryPage";
 import UserBook from "./pages/Users/UserBook";
 import UserBookinghistory from "./pages/Users/UserBookinghistory";
 import Contact from "./pages/Users/contact";
@@ -34,7 +34,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="login" element={<Login />} />
           <Route path="aboutPage" element={<About />} />
-          <Route path="category" element={<Category />} />
+          {/* <Route path="category" element={<Category />} /> */}
           <Route path="book" element={<UserBook />} />
           <Route path="payment" element={<Payment />} />
           <Route path="bookinghistory" element={<UserBookinghistory />} />

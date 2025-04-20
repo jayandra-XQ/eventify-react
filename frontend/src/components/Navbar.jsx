@@ -46,7 +46,6 @@ const Navbar = () => {
             <Link to="/category" className="text-[#123A85] hover:text-purple-600">Category</Link>
 
 
-
             {/* Conditional Links Based on Role */}
             {currentUser ? (
               currentUser.isAdmin ? (
