@@ -10,33 +10,33 @@ const UserProfile = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const userId = currentUser?._id;
 
-  // Fetch booking count on component mount
-  useEffect(() => {
-    const fetchBookingCount = async () => {
-      if (!userId) return;
+ // Fetch booking count on component mount
+ useEffect(() => {
+  const fetchBookingCount = async () => {
+    if (!userId) return;
 
-      try {
-        // Try to fetch booking count if you have an API for it
-        const paymentRes = await fetch(`/api/payments/history`, {
-          credentials: 'include',
-        });
+    try {
+      // Try to fetch booking count if you have an API for it
+      const paymentRes = await fetch(`/api/payments/history`, {
+        credentials: 'include',
+      });
 
-        if (paymentRes.ok) {
-          const payments = await paymentRes.json();
-          setBookingCount(payments.length);
-        } else {
-          // Fallback to mock data if API fails
-          console.log("Using mock booking count");
-          setBookingCount(3); // Mock booking count
-        }
-      } catch (error) {
-        console.error('Error fetching booking data:', error);
-        setBookingCount(0);
+      if (paymentRes.ok) {
+        const payments = await paymentRes.json();
+        setBookingCount(payments.length);
+      } else {
+        // Fallback to mock data if API fails
+        console.log("Using mock booking count");
+        setBookingCount(3); // Mock booking count
       }
-    };
+    } catch (error) {
+      console.error('Error fetching booking data:', error);
+      setBookingCount(0);
+    }
+  };
 
-    fetchBookingCount();
-  }, [userId]);
+  fetchBookingCount();
+}, [userId]);
 
   // Delete user account
   const handleDelete = async () => {
